@@ -10,14 +10,17 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    text_array = @text.split(' ')
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    text_occurrences = text_array.count(@special_word)
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @word_count = "Replace this string with your answer."
+    @character_count_without_spaces = @text.length - text_array.length + 1
 
-    @occurrences = "Replace this string with your answer."
+    @word_count = text_array.length
+
+    @occurrences = text_occurrences
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +41,12 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    calculated_rate = @apr/100/12
+    calculated_period = @years*12
+    calculated_principal = @principal.to_f
+    calculated_monthly_payment = calculated_principal * (calculated_rate / (1-(1+calculated_rate)**(-calculated_period)))
+
+    @monthly_payment = calculated_monthly_payment
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +68,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60
+    @hours = @minutes/60
+    @days = @hours/24
+    @weeks = @days/7
+    @years = @weeks/52
 
     # ================================================================================
     # Your code goes above.
@@ -82,27 +90,63 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    numbers_sorted = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @sorted_numbers = numbers_sorted
 
-    @minimum = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @maximum = "Replace this string with your answer."
+    @minimum = numbers_sorted[0]
 
-    @range = "Replace this string with your answer."
+    @maximum = numbers_sorted[@count-1]
 
-    @median = "Replace this string with your answer."
+    @range = @maximum - @minimum
 
-    @sum = "Replace this string with your answer."
 
-    @mean = "Replace this string with your answer."
+    #median calculation#
 
-    @variance = "Replace this string with your answer."
+    if @count % 2 == 1
+      @median = numbers_sorted[(@count-1)/2]
+    else
+      @median = (numbers_sorted[@count/2]+(numbers_sorted[(@count/2)-1]))/2
+    end
 
-    @standard_deviation = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mode = "Replace this string with your answer."
+    @mean = @sum/@count
+
+    #variance calculation#
+
+    x = 0
+    variance_numerator = 0
+    while x <= @count-1
+      variance_numerator = variance_numerator + ((@numbers[x]-@mean)**2)
+      x = x+1
+    end
+
+    @variance = variance_numerator / @count
+
+    @standard_deviation = @variance ** (0.5)
+
+    #mode calculation#
+
+    y = 0
+    current_lead = @numbers[0]
+    current_lead_count = @numbers.count(current_lead)
+
+    while y <= @count-1
+      current_competitor = @numbers[y]
+      current_competitor_count = @numbers.count(current_competitor)
+
+      if current_competitor_count > current_lead_count
+        current_lead = current_competitor
+      else
+      end
+
+      y = y+1
+    end
+
+    @mode = current_lead
 
     # ================================================================================
     # Your code goes above.
