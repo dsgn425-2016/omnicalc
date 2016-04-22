@@ -11,13 +11,15 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
 
-    @character_count_without_spaces = "Replace this string with your answer."
 
-    @word_count = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @occurrences = "Replace this string with your answer."
+    @word_count = @text.split(" ").size
+    @character_count_without_spaces =@character_count_with_spaces-@word_count+1
+
+
+    @occurrences = @text.split.count(@special_word)
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +40,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = @principal * (@apr + (@apr / ((1 + @apr) ** @years - 1)))
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +62,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending-@starting
+    @minutes = @seconds / 60
+    @hours = @minutes / 60
+    @days = @hours / 24
+    @weeks = @days / 7
+    @years = @weeks / 54
 
     # ================================================================================
     # Your code goes above.
@@ -82,27 +84,75 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.size
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @maximum-@minimum
 
-    @median = "Replace this string with your answer."
+    def fmedian(array)
+      median=0
+      index=@count/2
+      if @count.even? == true
+      median=array[index]+array[index+1]
+      median=median/2
+      else
+      median=array[index+0.5]
+      end
+      return median
+    end
 
-    @sum = "Replace this string with your answer."
+    @median = fmedian(@numbers)
 
-    @mean = "Replace this string with your answer."
+    def sum(list_of_numbers)
+      running_total = 0
+      list_of_numbers.each do |number|
+        running_total = running_total + number
 
-    @variance = "Replace this string with your answer."
+      end
+      return running_total
+    end
 
-    @standard_deviation = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mode = "Replace this string with your answer."
+
+
+    @mean = @sum/@count
+
+
+   def fvariance (list_of_numbers)
+     running_total = 0
+     final=0
+     list_of_numbers.each do |number|
+       running_total = running_total + (number-@mean)**2
+     end
+     final = running_total/@count
+     return final
+  end
+
+  @variance = fvariance(@numbers)
+
+   @standard_deviation = Math.sqrt(@variance)
+
+    def fmode (array)
+      running_total = 0
+      mode_num = 0
+      array.each do |number|
+        if array.count(number) > running_total
+        running_total = array.count(number)
+        mode_num=number
+      else
+      end
+    end
+      return mode_num
+    end
+
+
+    @mode = fmode (@numbers)
 
     # ================================================================================
     # Your code goes above.
