@@ -39,7 +39,10 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    monthly_rate=@apr/100/12
+    number_of_months=@years*12
+
+    @monthly_payment = @principal*(monthly_rate/(1-(1+monthly_rate)**(-number_of_months)))
 
     # ================================================================================
     # Your code goes above.
