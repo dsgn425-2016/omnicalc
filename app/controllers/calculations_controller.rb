@@ -48,7 +48,7 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
     # Code below is Matt Kiepura's solution to OmniCalc - Loan Payment
-    
+
     ratePER = @apr / 100 / 12
     periods = @years * 12
     principalAMT = @principal
@@ -75,12 +75,22 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    # Code below is Matt Kiepura's solution to OmniCalc - Time Between
+
+    secs_in_Min = 60
+    secs_in_HR = secs_in_Min * 60
+    secs_in_Day = secs_in_HR * 24
+    secs_in_WK = secs_in_Day * 7
+    secs_in_YR = secs_in_Day * 365.25
+
+    timeDIFF_secs = @ending - @starting
+
+    @seconds = timeDIFF_secs
+    @minutes = timeDIFF_secs / secs_in_Min
+    @hours = timeDIFF_secs / secs_in_HR
+    @days = timeDIFF_secs / secs_in_Day
+    @weeks = timeDIFF_secs / secs_in_WK
+    @years = timeDIFF_secs / secs_in_YR
 
     # ================================================================================
     # Your code goes above.
