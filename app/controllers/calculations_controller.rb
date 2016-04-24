@@ -10,14 +10,23 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    # Code below is Matt Kiepura's solution to OmniCalc - Word problems
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    # Count the number of characters in the string, including spaces
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    # Count the number of characters in the string, NO spaces
+    @character_count_without_spaces = @text.gsub(" ","").length
 
-    @word_count = "Replace this string with your answer."
+    # Count the number of words in the string
+    @word_count = @text.split.length
 
-    @occurrences = "Replace this string with your answer."
+    # Count the number of occurrences of the "special" word (NOT case sensitive)
+    textNoSpecialChars = @text.to_s.gsub(/["'?.!@,:;*$%&]/,"")
+    textAllLower = textNoSpecialChars.downcase
+    specialWordLower = @special_word.to_s.downcase
+    wordsArray = textAllLower.split
+    @occurrences = wordsArray.count(specialWordLower)
 
     # ================================================================================
     # Your code goes above.
