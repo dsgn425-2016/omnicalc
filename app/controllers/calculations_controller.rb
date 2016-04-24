@@ -107,17 +107,29 @@ class CalculationsController < ApplicationController
 
     @mean = @sum/@count
 
-   @var_counter = 0
-    while @var_counter < @numbers.length
-    #@delta_sum += ((@sorted_numbers[@var_counter] - @mean)**2)
-     @var_counter +=1
+   var_counter = 0
+   delta_sum = 0
+    while var_counter < @count
+    delta_sum += ((@sorted_numbers[var_counter] - @mean)**2)
+     var_counter +=1
    end
 
-    @variance = @sorted_numbers[0]
+    @variance = delta_sum/@count
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance **0.5
 
-    @mode = "Replace this string with your answer."
+    leading_num = nil
+    leading_counter = 0
+
+    @numbers.each do |num|
+      repeats = @numbers.count(num)
+      if repeats > leading_counter
+        leading_num = num
+        leading_counter = repeats
+      end
+    end
+
+    @mode = leading_num
 
     # ================================================================================
     # Your code goes above.
