@@ -31,6 +31,10 @@ class CalculationsController < ApplicationController
     @years = params[:number_of_years].to_i
     @principal = params[:principal_value].to_f
 
+    monthly_rate = @apr/100/12
+    term = @years*12
+    payment_amount= ((monthly_rate * @principal)/(1-(1+ monthly_rate)**(-term)))
+
     # ================================================================================
     # Your code goes below.
     # The annual percentage rate the user input is in the decimal @apr.
@@ -38,7 +42,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = ((@apr*@principal)/(1-(1+@apr)^(-@years)))
+    @monthly_payment = payment_amount
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +64,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60
+    @hours = @minutes/60
+    @days = @hours/24
+    @weeks = @days/7
+    @years = @weeks/52.17857143
 
     # ================================================================================
     # Your code goes above.
@@ -82,27 +86,52 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers[@count-1]
 
-    @range = "Replace this string with your answer."
+    @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    @median = (@sorted_numbers[@count/2]+(@sorted_numbers[@count/2]-1))/2
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @sum/@count
 
-    @variance = "Replace this string with your answer."
 
-    @standard_deviation = "Replace this string with your answer."
+    top, n = 0.0, 0
+    x = 0
+         numerator = 0
+        while x <= @count-1
+          numerator = numerator + ((@numbers[x]-@mean)**2)
+          x = x+1
+        end
+ @variance = numerator / @count
 
-    @mode = "Replace this string with your answer."
+
+    @standard_deviation = @variance**(0.5)
+
+a=0
+first_num=@numbers(0)
+end
+
+first_num_count=@numbers.count(first_num)
+while a<=@count-1
+  test=@numbers[a]
+  test_count=@numbers.count(test)
+  if test_count>first_num_count
+    first_num=test
+  else
+  end
+  a=a+1
+end
+    @mode = test
+    # appearance = @sorted_numbers.scan().count
+
 
     # ================================================================================
     # Your code goes above.
