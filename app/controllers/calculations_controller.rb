@@ -12,15 +12,31 @@ class CalculationsController < ApplicationController
 
     @character_count_with_spaces = @text.length
 
-    words = @text.strip
-    # words = words.gsub('  ',' ')
-    words = words.count(' ')+1
+    words_array = @text.split
+    n = 0
+    char_count = 0
+    num_words = words_array.length
 
-    @character_count_without_spaces = "#{words}"
+    while n < num_words
+      char_count = char_count + words_array[n].to_s.length
+      n = n+1
+    end
 
-    # @word_count = "Replace this string with your answer."
+    @character_count_without_spaces = "#{char_count}"
 
-    # @occurrences = "Replace this string with your answer."
+    @word_count = "#{words_array.length}"
+
+    n = 0
+    occur_n = 0
+
+    while n < num_words
+      if @special_word.to_s == words_array[n].to_s
+        occur_n += 1
+      end
+      n = n+1
+    end
+
+    @occurrences = "#{occur_n}"
 
     # ================================================================================
     # Your code goes above.
