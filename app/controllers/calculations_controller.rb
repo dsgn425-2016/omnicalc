@@ -10,7 +10,7 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
-    # Code below is Matt Kiepura's solution to OmniCalc - Word problems
+    # Code below is Matt Kiepura's solution to OmniCalc - Word Count
 
     # Count the number of characters in the string, including spaces
     @character_count_with_spaces = @text.length
@@ -47,7 +47,13 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    # Code below is Matt Kiepura's solution to OmniCalc - Loan Payment
+    
+    ratePER = @apr / 100 / 12
+    periods = @years * 12
+    principalAMT = @principal
+
+    @monthly_payment = (ratePER * principalAMT) / (1 - (1 + ratePER)**(-1 * periods))
 
     # ================================================================================
     # Your code goes above.
