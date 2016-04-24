@@ -38,7 +38,9 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthrate = @apr/1200
+    @months = @years*12
+    @monthly_payment = (@principal*@monthrate)/(1-(1+@monthrate)**-@months)
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +62,13 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @total_seconds = @ending-@starting
+    @seconds = @total_seconds
+    @minutes = @total_seconds/60
+    @hours = @total_seconds/(60*60)
+    @days = @total_seconds/(60*60*24)
+    @weeks = @total_seconds/(60*60*24*7)
+    @years = @total_seconds/(60*60*24*365)
 
     # ================================================================================
     # Your code goes above.
