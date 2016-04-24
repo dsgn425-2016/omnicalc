@@ -105,25 +105,43 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = "#{@numbers.sort}"
 
-    @count = "Replace this string with your answer."
+    @count = "#{@numbers.length}"
 
-    @minimum = "Replace this string with your answer."
+    @minimum = "#{@numbers.min}"
 
-    @maximum = "Replace this string with your answer."
+    @maximum = "#{@numbers.max}"
 
-    @range = "Replace this string with your answer."
+    @range = "#{@numbers.max - @numbers.min}"
 
-    @median = "Replace this string with your answer."
+    if (@numbers.length % 2) == 1
+      med = @numbers.sort[@numbers.length/2]
+    else
+      med = (@numbers.sort[@numbers.length/2] + @numbers.sort[@numbers.length/2-1])/2
+    end
 
-    @sum = "Replace this string with your answer."
+    @median = "#{med}"
 
-    @mean = "Replace this string with your answer."
+    sum_array, n = 0.0, 0
+    while n < @numbers.length
+      sum_array += @numbers[n]
+      n += 1
+    end
 
-    @variance = "Replace this string with your answer."
+    @sum = "#{sum_array}"
 
-    @standard_deviation = "Replace this string with your answer."
+    @mean = "#{sum_array / @numbers.length}"
+
+    top, n = 0.0, 0
+    while n < @numbers.length
+      top += (@mean.to_f - @numbers[n])**2
+      n += 1
+    end
+
+    @variance = "#{top/@numbers.length}"
+
+    @standard_deviation = "#{@variance.to_f.sq}"
 
     @mode = "Replace this string with your answer."
 
