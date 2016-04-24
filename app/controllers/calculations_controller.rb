@@ -141,9 +141,39 @@ class CalculationsController < ApplicationController
 
     @variance = "#{top/@numbers.length}"
 
-    @standard_deviation = "#{@variance.to_f.sq}"
+    @standard_deviation = "#{Math.sqrt(@variance.to_f)}"
 
-    @mode = "Replace this string with your answer."
+    numbers_unique = @numbers.sort.uniq
+    mode_num = 0
+    global_max = 0
+    # if all numbers are unique then select the lowest number as the mode
+    if @numbers.length == numbers_unique.length
+      mode_num = @numbers.min
+    else
+      # if not all unique, find the mode
+      unique_counter = 0
+      # for each unique number ...
+      while unique_counter < numbers_unique.length do
+        current_max = 0
+        numbers_counter = 0
+        # ... find how many times it exists in original set
+        while numbers_counter < @numbers.sort.length do
+          # if a match found, increment current_max
+          if numbers_unique[unique_counter] == @numbers.sort[numbers_counter]
+            current_max += 1
+          end
+          numbers_counter += 1
+        end
+        # if current max is greater than the global max, set new mode to current number being tested and save global count
+        if current_max > global_max
+          global_max = current_max
+          mode_num = numbers_unique[unique_counter]
+        end
+        unique_counter += 1
+      end
+    end
+
+    @mode = "#{mode_num}"
 
     # ================================================================================
     # Your code goes above.
