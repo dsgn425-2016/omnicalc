@@ -86,27 +86,56 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    def median(array)
+      len = array.length
+      (array[(len - 1) / 2] + array[len / 2]) / 2.0
+    end
 
-    @sum = "Replace this string with your answer."
+    @median = median(@sorted_numbers)
 
-    @mean = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @variance = "Replace this string with your answer."
+    def mean(array)
+      len=array.length
+      array.sum/len
+    end
 
-    @standard_deviation = "Replace this string with your answer."
+    @mean = mean(@numbers)
 
-    @mode = "Replace this string with your answer."
+    def variance(array)
+      sum = 0
+      array.each do|number|
+        sum = sum + (number-@mean)**2
+      end
+      variance=sum/@count
+      return variance
+    end
+
+    @variance = variance(@numbers)
+
+    @standard_deviation = Math.sqrt(@variance)
+
+    def mode(array)
+      num_count= 0
+      array.each do|number|
+        occurence=array.count(number)
+        if occurence > num_count
+           return num_count=num_count+occurence
+        end
+      end
+    end
+
+    @mode = mode(@numbers)
 
     # ================================================================================
     # Your code goes above.
