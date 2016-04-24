@@ -126,7 +126,16 @@ class CalculationsController < ApplicationController
     @standard_deviation = Math.sqrt(@variance)
 
     def mode(array)
-      array.uniq.max_by{ |i| array.count( i ) }
+      num_count= 0
+      current_leader = nil
+      array.each do|number|
+        occurence=array.count(number)
+        if occurence > num_count
+          num_count=num_count+occurence
+          current_leader=number
+        end
+      end
+      return current_leader
     end
 
     @mode = mode(@numbers)
