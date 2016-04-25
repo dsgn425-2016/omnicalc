@@ -21,8 +21,7 @@ class CalculationsController < ApplicationController
 
     @word_count = @text_split.size
 
-    @occurrences = "Replace this string with your answer."
-
+    @occurrences = @text_split.count(@special_word)
     # ================================================================================
     # Your code goes above.
     # ================================================================================
@@ -41,8 +40,10 @@ class CalculationsController < ApplicationController
     # The number of years the user input is in the integer @years.
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
-
-    @monthly_payment = "Replace this string with your answer."
+    n = @years*12
+    r = @apr/100/12
+    p = @principal
+    @monthly_payment = p * r * (1+r)**n / (((1+r)**n)-1)
 
     # ================================================================================
     # Your code goes above.
