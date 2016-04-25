@@ -92,24 +92,33 @@ class CalculationsController < ApplicationController
 
     @range = @sorted_numbers.last - @sorted_numbers[0]
 
-    @median =
-    if @sorted_numbers.length.odd
+    def median(array)
+      sorted=array.sort
+      len = sorted.length
+      (sorted [(len-1)/2]+ sorted[len/2])/2.0
+    end
 
+    @median = median(@numbers)
 
-  @sum = @numbers.sum
+    @sum = @numbers.sum
 
-  @mean = (@numbers.sum)/  @numbers.length
+    @mean = (@numbers.sum)/  @numbers.length
 
-  @variance = #
+    def variance
+      running_total = 0.0
+      @numbers.each {|x|running_total += (x-@mean)**2}
+      running_total/@numbers.size
+    end
+    @variance = variance
 
-  @standard_deviation = #
+    @standard_deviation = Math.sqrt(@variance)
 
-  @mode = #
+    @mode = @numbers.uniq.max_by {|a| @numbers.count(a)}
 
-  # ================================================================================
-  # Your code goes above.
-  # ================================================================================
+    # ================================================================================
+    # Your code goes above.
+    # ================================================================================
 
-  render("descriptive_statistics.html.erb")
-end
+    render("descriptive_statistics.html.erb")
+  end
 end
