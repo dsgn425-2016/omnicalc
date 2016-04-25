@@ -121,7 +121,7 @@ class CalculationsController < ApplicationController
     @mean_diff = 0
     while @count_num < @count
       @mean_diff = @mean_diff+((@sorted_numbers(@count_num) - @mean)**2)
-      @counter = @counter +1
+      @counter = @count_num +1
     end
     @variance =@mean_diff
 
