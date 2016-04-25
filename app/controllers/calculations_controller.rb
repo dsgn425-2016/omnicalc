@@ -41,10 +41,10 @@ class CalculationsController < ApplicationController
     # The number of years the user input is in the integer @years.
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
-@interest_monthly=@apr/12
-@loan_term=@years*12
+    @interest_monthly=@apr/12/100
+    @loan_term=@years*12
 
-    @monthly_payment = @interest_monthly*@principal/(1-((1+@interest_monthly)**(-1*@loan_term)))
+    @monthly_payment = @principal * @interest_monthly * (1+@interest_monthly)**@loan_term / (((1+@interest_monthly)**@loan_term)-1)
 
     # ================================================================================
     # Your code goes above.
@@ -98,17 +98,30 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = @numbers[@count/2] #this isn't correct
+    @median = (@numbers.sort[(@numbers.length - 1) / 2] + @numbers.sort[@numbers.length / 2 ]) / 2
 
     @sum = @numbers.sum
 
     @mean = @sum/@count
 
-    @variance = "Unknown"
+    @variance = @numbers.inject(0){|sum, element| sum+(element-@mean)**2}/@count
 
-    @standard_deviation = "Square Root of Variance"
+    @standard_deviation = Math.sqrt(@variance)
 
-    @mode = "Unknown"
+    def mode(array)
+      num_count= 0
+      most_common_number = nil
+      array.each do|number|
+        occurence=array.count(number)
+        if occurence > num_count
+          num_count=num_count+occurence
+          most_common_number=number
+        end
+      end
+      return most_common_number
+    end
+
+    @mode = mode(@numbers)
 
     # ================================================================================
     # Your code goes above.
