@@ -38,7 +38,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = @principal*(@apr/1200)*(1+@apr/1200)**(@years*1200)/(1+@apr/1200)**(@years*1200)
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +60,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = (@ending-@starting).to_i
+    @minutes = (@seconds/60).to_i
+    @hours = (@minutes/60).to_i
+    @days = (@hours/24).to_i
+    @weeks = (@days/7).to_f
+    @years =(@weeks/52).to_f
 
     # ================================================================================
     # Your code goes above.
@@ -98,9 +98,9 @@ class CalculationsController < ApplicationController
 
     @mean = @sum/@count
 
-    @variance = "Replace this string with your answer."
+    @variance = @sorted_numbers.map { |e| (e-=@mean)**2 }.inject(0, &:+)/@count
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance**0.5.to_f
 
     @mode = "Replace this string with your answer."
 
