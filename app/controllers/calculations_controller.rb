@@ -111,21 +111,15 @@ class CalculationsController < ApplicationController
 
     @mean = @sum/@count
 
-    # @ary = @numbers.to_a
-    # @avg = (@ary.inject(0.0) {|s,x| s + x}) / Float(@ary.length)
-    # @variance = @ary.inject(0.0) {|s,x| s + (x - @avg)**2}
+   top, n = 0.0, 0
+     while n < @numbers.length
+      top += (@mean.to_f - @numbers[n])**2
+      n += 1
+    end
 
-    # @variance = "Replace this string with your answer."
+     @variance = top/@numbers.length
 
-    # @count_num = 0
-    # @mean_diff = 0
-    # while @count_num < @count
-    #   @mean_diff = @mean_diff+((@sorted_numbers(@count_num) - @mean)**2)
-    #   @counter = @count_num +1
-    # end
-    # @variance =@mean_diff
-
-    # @standard_deviation = Math.sqrt(@variance)
+    @standard_deviation = Math.sqrt(@variance)
 
     @mode = @numbers.uniq.max_by{ |i| @numbers.count( i ) }
 
