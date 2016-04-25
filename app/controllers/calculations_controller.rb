@@ -11,13 +11,12 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.length - @text.count(" ")
 
-    @word_count = "Replace this string with your answer."
-
-    @occurrences = "Replace this string with your answer."
+    @word_count = 1 + @text.count(" ")
+    @occurrences = @text.scan(@special_word).count
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +37,12 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    rate_calc = @apr/100/12
+    period_calc = @years*12
+    principal_calc = @principal.to_f
+    payment_calc = principal_calc * (rate_calc / (1-(1+rate_calc)**(-period_calc)))
+
+    @monthly_payment = payment_calc
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +64,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60
+    @hours = @minutes/60
+    @days = @hours/24
+    @weeks = @days/7
+    @years = @days/365
 
     # ================================================================================
     # Your code goes above.
@@ -82,28 +86,67 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.max - @numbers.min
 
-    @median = "Replace this string with your answer."
+    if @sorted_numbers.length.odd?                   #is the length of the array odd?
+      @median = @sorted_numbers[(@sorted_numbers.length - 1) / 2] #find value at this index
+    else @sorted_numbers.length.even?                #is the length of the array even?
+      @median = (@sorted_numbers[@sorted_numbers.length/2] + @sorted_numbers[@sorted_numbers.length/2 - 1] )/2.to_f
+      #average the values found at these two indexes and convert t float.
+    end
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @sum/@count
 
-    @variance = "Replace this string with your answer."
+    top, n = 0.0, 0
+    while n < @numbers.length
+      top += (@mean.to_f - @numbers[n])**2
+      n += 1
+    end
 
-    @standard_deviation = "Replace this string with your answer."
+    @variance = top/@numbers.length
 
-    @mode = "Replace this string with your answer."
+    @standard_deviation = Math.sqrt(@variance.to_f)
+    unique_numbers = @numbers.sort.uniq
+     mode = 0
+     global_max = 0
+     # if all numbers are unique then select the lowest number as the mode
+     if @numbers.length == unique_numbers.length
+       mode = @numbers.min
+     else
+       # if not all unique, find the mode
+       unique_counter = 0
+       # for each unique number ...
+       while unique_counter < unique_numbers.length do
+         current_max = 0
+         numbers_counter = 0
+         # ... find how many times it exists in original set
+         while numbers_counter < @numbers.sort.length do
+           # if a match found, increment current_max
+           if unique_numbers[unique_counter] == @numbers.sort[numbers_counter]
+             current_max = 1
+           end
+           numbers_counter = 1
+         end
+         # if current max is greater than the global max, set new mode to current number being tested and save global count
+         if current_max > global_max
+           global_max = current_max
+           mode = unique_numbers[unique_counter]
+         end
+         unique_counter = 1
+       end
+     end
 
+     @mode = mode
     # ================================================================================
     # Your code goes above.
     # ================================================================================
