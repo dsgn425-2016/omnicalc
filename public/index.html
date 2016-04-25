@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Omnicalc</title>
+  <script src="/assets/application-391bcb7d673d5090586060c4dfc0cb473af7b3d92a9ea06629ced34e9792b405.js"></script>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HFV6gxwqY3VWqPfIpJ7xqqBRuTX0DGXxvGQKEIENeigC8yrsCmAA+AOmtPiaX7C/YyJ0xE1aGnjEUyHQczgLwQ==" />
+
+  <!-- Connect to Bootstrap CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Connect to Font Awesome CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- Connect to Bootstrap Javascript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" media="all" href="/assets/application-86174dad9b762c583530e84ea398a85e07295731ee6b060f4d2f4703171fbdec.css" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-fd57f4115737af2da295ad7d6eb7885c79b1c1aac4d8c654c80da55ee74343d7.ico" />
+
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <i class="fa fa-calculator"></i>
+          Omnicalc
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav visible-xs visible-sm">
+          <li>
+            <a href="/word_count/new">
+              <i class="fa fa-book"></i>
+              <span>Word Count</span>
+            </a>
+          </li>
+          <li>
+            <a href="/loan_payment/new">
+              <i class="fa fa-money"></i>
+              <span>Loan Payment</span>
+            </a>
+          </li>
+          <li>
+            <a href="/time_between/new">
+              <i class="fa fa-clock-o"></i>
+              <span>Time Between</span>
+            </a>
+          </li>
+          <li>
+            <a href="/descriptive_statistics/new">
+              <i class="fa fa-bar-chart"></i>
+              <span>Descriptive Statistics</span>
+            </a>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 hidden-xs hidden-sm">
+        <div class="list-group">
+          <a href="/word_count/new" class="list-group-item">
+            <i class="fa fa-book"></i>
+            Word Count
+          </a>
+          <a href="/loan_payment/new" class="list-group-item">
+            <i class="fa fa-money"></i>
+            Loan Payment
+          </a>
+          <a href="/time_between/new" class="list-group-item">
+            <i class="fa fa-clock-o"></i>
+            Time Between
+          </a>
+          <a href="/descriptive_statistics/new" class="list-group-item">
+            <i class="fa fa-bar-chart"></i>
+            Descriptive Statistics
+          </a>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">New Word Count Calculation</h3>
+  </div>
+  <div class="panel-body">
+    <form action="/word_count/results" class="form-horizontal">
+
+      <div class="form-group">
+        <label for="user_text" class="col-sm-2 control-label">Text</label>
+        <div class="col-sm-10">
+          <textarea name="user_text" class="form-control" rows="3" placeholder="Enter your text" id="user_text"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label for="user_word" class="col-sm-2 control-label">Special Word (optional)</label>
+          <div class="col-sm-10">
+            <input name="user_word" type="name" class="form-control" id="user_word" placeholder="Enter a word to count the occurrences of">
+          </div>
+        </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
