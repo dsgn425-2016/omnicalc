@@ -115,7 +115,18 @@ class CalculationsController < ApplicationController
 
   @standard_deviation = standard_deviation
 
-  @mode = "Replace this string with your answer."
+def mode(array)
+  num_count = 0
+  current_leader = nil
+  array.each do |number|
+    occurrence = array.count(number)
+
+    if occurrence > current_leader
+      return current_leader
+    end
+  end
+end
+  @mode = mode(@numbers)
 
   # ================================================================================
   # Your code goes above.
