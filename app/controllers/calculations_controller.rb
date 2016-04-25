@@ -63,11 +63,11 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
     @seconds = @ending - @starting
-    @minutes = @seconds/60
-    @hours = @minutes/60
-    @days = @hours/24
-    @weeks = @days/7
-    @years = @weeks/(365.25/7)
+    @minutes = @seconds/1.minute
+    @hours = @seconds/1.hour
+    @days = @seconds/1.day
+    @weeks = @seconds/1.week
+    @years = @seconds/1.year
 
     # ================================================================================
     # Your code goes above.
@@ -94,17 +94,43 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = @sorted_numbers[(@count/2)]
+    def median(array)
+      sorted = array.sort
+      len = sorted.length
+      (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+    end
 
-    @sum = @numbers.inject(:+)
+    @median = median(@numbers)
+
+    @sum = @numbers.sum
 
     @mean = @sum/@count
 
-    @variance = (((@sorted_numbers[0]-@mean)**2) +((@sorted_numbers[1]-@mean)**2)+((@sorted_numbers[2]-@mean)**2)+/@count
+    def variance (list_of_numbers)
+      running_total = 0
+      list_of_numbers.each do |number|
+        running_total = running_total + (number-@mean)**2
+      end
+      final = running_total/@count
+      return final
+    end
+    @variance = variance(@numbers)
 
     @standard_deviation = @variance ** (0.5)
 
-    @mode = @median
+    def mode(array)
+      num_count= 0
+      current_leader = nil
+      array.each do|number|
+        occurence=array.count(number)
+        if occurence > num_count
+          num_count=num_count+occurence
+          current_leader=number
+        end
+      end
+      return current_leader
+    end
+    @mode = mode(@numbers)
 
     # ================================================================================
     # Your code goes above.
