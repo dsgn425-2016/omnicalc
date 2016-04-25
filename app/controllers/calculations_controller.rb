@@ -10,14 +10,23 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    @character_count_with_spaces = @text.length
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    wordsArray = @text.split(" ")
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @word_count = wordsArray.length;
 
-    @word_count = "Replace this string with your answer."
+    @character_count_without_spaces = @character_count_with_spaces - @word_count + 1
 
-    @occurrences = "Replace this string with your answer."
+    $i = 0
+    $count = 0
+    while $i < @word_count do
+      if wordsArray[$i].gsub(/\W/,"") == @special_word
+        $count += 1
+      end
+      $i += 1
+    end
+    @occurrences = $count
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +47,12 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    mpr = @apr/12/100
+
+    months = @years * 12
+
+    @monthly_payment = @principal * mpr / (1 - ((1 + mpr) ** (-months)))
+
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +74,17 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+
+    @minutes = @seconds / 60.0
+
+    @hours = @minutes / 60.0
+
+    @days = @hours / 24.0
+
+    @weeks = @days / 7.0
+
+    @years = @weeks / (365.25 / 7.0)
 
     # ================================================================================
     # Your code goes above.
@@ -82,27 +101,88 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    numberArray = @numbers
 
-    @count = "Replace this string with your answer."
+    @count = numberArray.length
 
-    @minimum = "Replace this string with your answer."
 
-    @maximum = "Replace this string with your answer."
+    # min, max, sum, tempSort
 
-    @range = "Replace this string with your answer."
+    min = Float::INFINITY
+    max = - Float::INFINITY
+    sum = 0
+    sortedArray = Array.new(@count)
 
-    @median = "Replace this string with your answer."
+    $i = 0
+    while $i < @count do
+      min = [min, numberArray[$i]].min
+      max = [max, numberArray[$i]].max
+      sum += numberArray[$i]
+      sortNumber = 0
+      $j = 0
+      while $j < @count do
+        if (numberArray[$j] < numberArray[$i])
+          sortNumber += 1
+        end
+        $j += 1
+      end
+      sortedArray[sortNumber] = numberArray[$i]
+      $i += 1
+    end
 
-    @sum = "Replace this string with your answer."
+    @minimum = min
+    @maximum = max
+    @range = @maximum - @minimum
 
-    @mean = "Replace this string with your answer."
+    @sum = sum
+    @mean = sum/@count
 
-    @variance = "Replace this string with your answer."
 
-    @standard_deviation = "Replace this string with your answer."
+    # sortArray, mode
+    $i = 0
+    prevNumber = nil
+    tempMode = nil
+    tempModeCount = 1
+    mode = nil
+    modeCount = 1
+    while $i < @count do
+      if (sortedArray[$i] != nil)
+        prevNumber = sortedArray[$i]
+      else
+        sortedArray[$i] = prevNumber
+        tempMode = prevNumber
+        tempModeCount += 1
+        if(tempModeCount > modeCount)
+          mode = tempMode
+          modeCount = tempModeCount
+        end
+      end
+      $i += 1
+    end
 
-    @mode = "Replace this string with your answer."
+    @sorted_numbers = sortedArray
+
+    @mode = mode
+
+    if(@count.odd?)
+      @median = sortedArray[(@count - 1) / 2]
+    else
+      @median = (sortedArray[@count/2 - 1] + sortedArray[@count/2])/2.0
+    end
+
+
+    # var, stdev
+
+    var = 0
+
+    $i = 0
+    while $i < @count do
+      var += (numberArray[$i] - @mean) ** 2 / @count
+      $i += 1
+    end
+
+    @variance = var
+    @standard_deviation = var ** 0.5
 
     # ================================================================================
     # Your code goes above.
