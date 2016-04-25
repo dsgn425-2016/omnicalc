@@ -45,8 +45,8 @@ class CalculationsController < ApplicationController
     # Multiply the number of years to months in order to find number of periods of payment
     @nper = @years*12
 
+    # Formula from wikipedia
     @monthly_payment = @apr_monthly*@principal/(1-((1+@apr_monthly)**(-1*@nper)))
-    
 
     render("loan_payment.html.erb")
   end
