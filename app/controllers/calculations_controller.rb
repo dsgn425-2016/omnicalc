@@ -59,12 +59,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = '@ending' - '@starting'
+    @minutes = ('@ending' - '@starting')/60
+    @hours = (('@ending' - '@starting')/60)/60
+    @days = ((('@ending' - '@starting')/60)/60)/24
+    @weeks = (((('@ending' - '@starting')/60)/60)/24)/7
+    @years = ((((('@ending' - '@starting')/60)/60)/24)/7)/52
 
     # ================================================================================
     # Your code goes above.
@@ -81,27 +81,27 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.list_of_numbers
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.minimum
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.maximum
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.range
 
-    @median = "Replace this string with your answer."
+    @median = @numbers.median
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @numbers.mean
 
-    @variance = "Replace this string with your answer."
+    @variance = @numbers.variance
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @numbers.standard_deviation
 
-    @mode = "Replace this string with your answer."
+    @mode = @numbers.mode
 
     # ================================================================================
     # Your code goes above.
