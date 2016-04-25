@@ -11,11 +11,11 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.chomp.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.chomp.delete!(" ").length
 
-    @word_count = "Replace this string with your answer."
+    @word_count = @text.split(" ").uniq.length
 
     @occurrences = "Replace this string with your answer."
 
@@ -82,21 +82,21 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers[@count-1]
 
-    @range = "Replace this string with your answer."
+    @range = @maximum-@minimum
 
     @median = "Replace this string with your answer."
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.reduce( :+ )
 
-    @mean = "Replace this string with your answer."
+    @mean = @sum/@count
 
     @variance = "Replace this string with your answer."
 
