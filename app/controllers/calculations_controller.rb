@@ -11,13 +11,14 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = "@text.length"
 
     @character_count_without_spaces = "Replace this string with your answer."
 
-    @word_count = "Replace this string with your answer."
+    @word_count = "@text.split.length"
 
-    @occurrences = "Replace this string with your answer."
+    @occurrences = "@text.scan(@special_word.to_s).length"
+
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +39,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = "(@principal/@years) + ((@principal/@years)/100*(@apr*@years))"
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +61,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = "(@starting - @ending).to_i.abs"
+    @minutes = "@seconds/60"
+    @hours = "@minutes/60"
+    @days = "@hours/24"
+    @weeks = "@days/52"
+    @years = "@days/365"
 
     # ================================================================================
     # Your code goes above.
