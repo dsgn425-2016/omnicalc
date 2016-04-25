@@ -94,19 +94,21 @@ class CalculationsController < ApplicationController
 
     @range = @maximum-@minimum
 
-    @median = (@sorted_numbers[(@count-1)/2]+@sorted_numbers(@count/2)/2
+    @median = (@sorted_numbers[(@count-1)/2] + @sorted_numbers[@count/2])/2
 
     @sum = @numbers.sum
 
     @mean = @sum/@count
 
-    @counter=0
-    @mean_diff=0
-    while @counter < @count
-      @mean_diff=@mean_diff+((@sorted_numbers(@counter)-@mean)**2)
-      @counter = @counter +1
+    @i=0
+    @difference=0
+    while @i <= @count-1
+      @difference = @difference + ((@sorted_numbers[@i]-@mean)**2)
+      @i = @i +1
     end
-    @variance =@mean_diff
+
+    @variance = @difference
+
     @standard_deviation = @variance**(1/2)
 
     @mode =""
