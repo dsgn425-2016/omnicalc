@@ -97,15 +97,33 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    @length = @sorted_numbers.length
 
-    @sum = "Replace this string with your answer."
+    @median = 
 
-    @mean = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @variance = "Replace this string with your answer."
+    @mean = @sum / @count
 
-    @standard_deviation = "Replace this string with your answer."
+    def variance (list_of_numbers)
+      running_total = 0
+      list_of_numbers.each do |number|
+        running_total = running_total + (number-@mean)**2
+      end
+      final = running_total/@count
+      return final
+    end
+    @variance = variance(@numbers)
+
+    def std (list_of_numbers)
+      running_total = 0
+      list_of_numbers.each do |number|
+        running_total = running_total + (number-@mean)**2
+      end
+      final = (running_total/@count)**0.5
+      return final
+    end
+    @standard_deviation = std(@numbers)
 
     @mode = "Replace this string with your answer."
 
