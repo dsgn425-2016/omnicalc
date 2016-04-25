@@ -92,17 +92,26 @@ class CalculationsController < ApplicationController
 
     @range = @maximum-@minimum
 
+def median(array)
+  median_calc = 0
     if (@count/2).even?
-      @median_calc = (@sorted_numbers[@count/2]+@sorted_numbers[@count/2-1])/2
+      median_calc = (@sorted_numbers[@count/2]+@sorted_numbers[@count/2-1])/2
     else
-      @median_calc = @sorted_numbers[@count/2]
+      median_calc = @sorted_numbers[@count/2]
     end
-    @median = @median_calc
+    return median_calc
+  end
+    @median = median(@numbers)
 
-    @numbers.each do |number|
-      @running_total = @running_total.to_f + number.to_f
+
+def sum(array)
+  running_total = 0
+    array.each do |number|
+      running_total = running_total.to_f + number.to_f
     end
-    @sum =@running_total
+    return running_total
+  end
+    @sum =sum(@numbers)
 
     @mean = @sum/@count
 
