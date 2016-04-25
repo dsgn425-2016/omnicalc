@@ -11,13 +11,13 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.length - (@text.count(' '))
 
-    @word_count = "Replace this string with your answer."
+    @word_count = @text.count(' ') + 1
 
-    @occurrences = "Replace this string with your answer."
+    @occurrences = @text.split.count(@special_word)
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +38,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = @principal* (@apr*((1+@apr)**(@years*12)))/((1+@apr)**(@years*12)-1)
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +60,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60
+    @hours = @minutes / 60
+    @days = @hours / 24
+    @weeks = @days / 7
+    @years = @weeks / 52
 
     # ================================================================================
     # Your code goes above.
@@ -82,32 +82,34 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @sorted_numbers.last - @sorted_numbers[0]
 
-    @median = "Replace this string with your answer."
+    @median =
+    if @sorted_numbers.length.odd
 
-    @sum = "Replace this string with your answer."
 
-    @mean = "Replace this string with your answer."
+  @sum = @numbers.sum
 
-    @variance = "Replace this string with your answer."
+  @mean = (@numbers.sum)/  @numbers.length
 
-    @standard_deviation = "Replace this string with your answer."
+  @variance = #
 
-    @mode = "Replace this string with your answer."
+  @standard_deviation = #
 
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+  @mode = #
 
-    render("descriptive_statistics.html.erb")
-  end
+  # ================================================================================
+  # Your code goes above.
+  # ================================================================================
+
+  render("descriptive_statistics.html.erb")
+end
 end
