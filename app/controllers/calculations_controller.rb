@@ -8,16 +8,18 @@ class CalculationsController < ApplicationController
     # Your code goes below.
     # The text the user input is in the string @text.
     # The special word the user input is in the string @special_word.
-    # ================================================================================
+    # ================================================================================ㄋ
 
+    @character_count_with_spaces = @text.count "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789"
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.count "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789", "^ "
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @occurrences = @special_word.size
+    # occurrences_count = Hash.new(0)
+    # @text.each { |:user_word| occurrences_count[:user_word] += 1 }
+    # puts occurrences_count
 
-    @word_count = "Replace this string with your answer."
-
-    @occurrences = "Replace this string with your answer."
+    @word_count = @text.scan(/(\w|-)+/).size
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +40,20 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = (@principal * @apr / 100 / 12 ) / (1 - (1 + @apr / 100 / 12) ** -(@years * 12))
+
+
+    #   P = (Pv*R) / [1 - (1 + R)^(-n)]
+    #
+    # where
+    #
+    #   Pv  = Present Value (beginning value or amount of loan)
+    #   APR = Annual Percentage Rate (one year time period)
+    #   R   = Periodic Interest Rate = APR/ # of interest periods per year
+    #   P   = Monthly Payment
+    #   n   = # of interest periods for overall time period (i.e., interest
+    #         periods per year * number of years)
+
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +75,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = (@ending - @starting) / 60
+    @hours = -((@starting - @ending) / 1.hour).round
+    @days = (@ending - @starting) / 60 / 60 /24
+    @weeks = (@ending - @starting) / 60 / 60 / 24 / 7
+    @years = (@ending - @starting) / 60 / 60 / 24 / 365
 
     # ================================================================================
     # Your code goes above.
@@ -82,27 +97,58 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort_by{ |i| i }
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.max - @numbers.min
 
-    @median = "Replace this string with your answer."
+    @median =  "Replace this string with your answer."
 
-    @sum = "Replace this string with your answer."
+    # def median(ary)
+    #   mid = ary.length / 2
+    #   sorted = ary.sort
+    #   ary.length.odd? ? sorted[mid] : 0.5 * (sorted[mid] + sorted[mid - 1])
+    # end
 
-    @mean = "Replace this string with your answer."
+    @sum = @numbers.sum
+
+    @mean = @numbers.sum / @count
 
     @variance = "Replace this string with your answer."
 
     @standard_deviation = "Replace this string with your answer."
 
+    # def sum
+    #   return self.inject(0){|accum, i| accum + i }
+    # end
+    #
+    # def mean
+    #   return self.sum / self.length.to_f
+    # end
+    #
+    # def sample_variance
+    #   m = self.mean
+    #   sum = self.inject(0){|accum, i| accum + (i - m) ** 2 }
+    #   return sum / (self.length - 1).to_f
+    # end
+    #
+    # def standard_deviation
+    #   return Math.sqrt(self.sample_variance)
+    # end
+
+
     @mode = "Replace this string with your answer."
+    # class Array
+    #   def mode
+    #     sort_by {|i| grep(i).length }.last
+    #   end
+    # end
+
 
     # ================================================================================
     # Your code goes above.
