@@ -99,9 +99,11 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = @numbers.sort_by{ |i| i }
+    numbers_sorted = @numbers.sort
 
-    @count = @numbers.count
+    @sorted_numbers = numbers_sorted
+
+    @count = @numbers.length
 
     @minimum = @numbers.min
 
@@ -109,21 +111,22 @@ class CalculationsController < ApplicationController
 
     @range = @numbers.max - @numbers.min
 
-    @median =  "Replace this string with your answer."
+    def median(ary)
+      middle = ary.size/2
+      sorted = ary.sort_by{ |a| a }
+      ary.size.odd? ? sorted[middle] : (sorted[middle]+sorted[middle-1])/2.0
+    end
 
-    # def median(ary)
-    #   mid = ary.length / 2
-    #   sorted = ary.sort
-    #   ary.length.odd? ? sorted[mid] : 0.5 * (sorted[mid] + sorted[mid - 1])
-    # end
+    @median = median(@numbers)
 
-    @sum = @numbers.sum
+    @ttotal = 0
+    @numbers.each do |add_num|
+      @ttotal = @ttotal + add_num
+    end
+
+    @sum = @ttotal
 
     @mean = @numbers.sum / @count
-
-    @variance = "Replace this string with your answer."
-
-    @standard_deviation = "Replace this string with your answer."
 
     # def sum
     #   return self.inject(0){|accum, i| accum + i }
@@ -142,6 +145,10 @@ class CalculationsController < ApplicationController
     # def standard_deviation
     #   return Math.sqrt(self.sample_variance)
     # end
+
+    @variance =
+
+    @standard_deviation = "Replace this string with your answer."
 
 
     @mode = "Replace this string with your answer."
