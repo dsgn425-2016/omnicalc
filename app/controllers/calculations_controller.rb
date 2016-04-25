@@ -104,15 +104,50 @@ class CalculationsController < ApplicationController
       @median = (@sorted_numbers[(@count/2)-1]+@sorted_numbers[(@count/2)])/2
     end
 
-    @sum = "Replace this string with your answer."
+    @counter = 0
+    @running_total = 0
 
-    @mean = "Replace this string with your answer."
+      @sorted_numbers.each do |number|
+      @running_total = @running_total + number
+      end
 
-    @variance = "Replace this string with your answer."
+    @sum = @running_total
 
-    @standard_deviation = "Replace this string with your answer."
+    @mean = @sum / @count
 
-    @mode = "Replace this string with your answer."
+    def variance(list_of_numbers)
+      @var_total = 0
+      list_of_numbers.each do |number|
+        @var_total = @var_total + ((number-@mean)**2)
+      end
+      return @var_total/@count
+    end
+
+    @variance = variance(@sorted_numbers)
+
+    @standard_deviation = Math.sqrt(@variance)
+
+    def mode(list_of_numbers)
+      @current_mode = @sorted_numbers[0]
+      @new_mode_counter = 0
+      @old_mode_counter = 0
+      list_of_numbers.each do |number|
+        if number == @current_mode
+          @new_mode_counter = @new_mode_counter + 1
+        elsif
+          if @new_mode_counter > @old_mode_counter
+          @current_mode = number
+          @old_mode_counter = @new_mode_counter
+          @new_mode_counter = 0
+          elsif @new_mode_counter <= @old_mode_counter
+          @new_mode_counter = 0
+        end
+      end
+      end
+    return @current_mode
+  end
+
+    @mode = mode(@sorted_numbers)
 
     # ================================================================================
     # Your code goes above.
