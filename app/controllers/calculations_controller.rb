@@ -103,7 +103,19 @@ end
 
   @standard_deviation = @variance**(0.5)
 
-    @mode = "Replace this string with your answer."
+#calculate mode
+@i=0
+@frequency=Array.new(@count,0)
+@mode=@sorted_numbers[0]
+@sorted_numbers.each do |number|
+  if(@sorted_numbers[@i]==@sorted_numbers[@i+1])
+    @mode=@sorted_numbers[@i]
+    @frequency[@i]=@frequency[@i]+1
+  else @frequency[@i]=@frequency[@i]+1
+    end
+  @i=@i+1
+end
+    @mode
 
 
     render("descriptive_statistics.html.erb")
