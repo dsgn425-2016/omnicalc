@@ -82,32 +82,45 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.max - @numbers.min
 
-    @median = "Replace this string with your answer."
+    @median = (@sorted_numbers[(@count-1)/2] + @sorted_numbers[@count/2])/2
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @numbers.sum/@numbers.count
 
-    @variance = "Replace this string with your answer."
+    def variance(list_of_numbers)
+      running_total=0
+      list_of_numbers.each do |number|
+        running_total = running_total + (number-@mean)**2
+      end
 
-    @standard_deviation = "Replace this string with your answer."
+      return running_total/@count
+    end
 
-    @mode = "Replace this string with your answer."
+    @variance = variance(@numbers)
 
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    def standard_deviation
+      return Math.sqrt(@variance)
+    end
 
-    render("descriptive_statistics.html.erb")
-  end
+  @standard_deviation = standard_deviation
+
+  @mode = "Replace this string with your answer."
+
+  # ================================================================================
+  # Your code goes above.
+  # ================================================================================
+
+  render("descriptive_statistics.html.erb")
+end
 end
