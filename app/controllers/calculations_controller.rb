@@ -72,12 +72,15 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+# total time [assuming hours]
+@totaltime = @starting-@ending
+
+    @seconds = @totaltime*3600
+    @minutes = @totaltime*60
+    @hours = @totaltime
+    @days = @totaltime/24
+    @weeks = @totaltime/168
+    @years = @totaltime/8760
 
     # ================================================================================
     # Your code goes above.
@@ -94,25 +97,30 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers.first
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers.last
 
-    @range = "Replace this string with your answer."
+    @range = @maximum-@minimum
 
-    @median = "Replace this string with your answer."
+# Median logic
+     if @count.even?
+       @median = (@numbers[@count/2]+@numbers[(@count/2)-1]/2]
+     else @median = @numbers[@count/2]
+     end
 
-    @sum = "Replace this string with your answer."
+    @sum = 0
 
-    @mean = "Replace this string with your answer."
+
+    @mean = @sum/@count
 
     @variance = "Replace this string with your answer."
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance**(2)
 
     @mode = "Replace this string with your answer."
 
