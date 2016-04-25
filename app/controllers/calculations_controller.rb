@@ -11,13 +11,16 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+spaces = @text.count " "
 
-    @word_count = "Replace this string with your answer."
+    @character_count_without_spaces = @character_count_with_spaces - spaces
 
-    @occurrences = "Replace this string with your answer."
+    splits = @text.split(" ")
+    @word_count = splits.length.to_s
+
+    @occurrences = splits.count(@special_word) #{@special_word}
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +41,12 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+rate = (@apr/12) / 100
+periods = @years * 12
+numerator = rate * @principal * ((1+rate)**periods)
+denominator = ((1 + rate) ** periods) - 1
+the_payment = numerator / denominator
+    @monthly_payment = the_payment.to_s
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +68,17 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    number_minutes = @seconds / 60
+    @minutes = number_minutes
+    number_hours = number_minutes / 60
+    @hours = number_hours.round(2)
+    number_days = number_hours / 24
+    @days = number_days.round(2)
+    number_weeks = number_days / 7
+    @weeks = number_weeks.round(2)
+    number_years = number_weeks / 52
+    @years = number_years.round(2)
 
     # ================================================================================
     # Your code goes above.
