@@ -94,16 +94,19 @@ the_payment = numerator / denominator
     # Your code goes below.
     # The numbers the user input are in the array @numbers.
     # ================================================================================
+entries = @numbers.split(" ")
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+range_of_numbers = "#{@numbers.min} to #{@numbers.max}"
+
+    @range = range_of_numbers
 
     @median = "Replace this string with your answer."
 
