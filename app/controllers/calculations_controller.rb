@@ -40,12 +40,13 @@ class CalculationsController < ApplicationController
     # The number of years the user input is in the integer @years.
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
+    # Convert the APR into monthly percentage
+    @apr_monthly = @apr/1200
+    # Multiply the number of years to months in order to find number of periods of payment
+    @nper = @years*12
 
-    @monthly_payment = "Replace this string with your answer."
-
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    @monthly_payment = @apr_monthly*@principal/(1-((1+@apr_monthly)**(-1*@nper)))
+    
 
     render("loan_payment.html.erb")
   end
