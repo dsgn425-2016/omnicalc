@@ -5,23 +5,26 @@ class CalculationsController < ApplicationController
     @special_word = params[:user_word]
 
     # ================================================================================
-    # Your code goes below.
     # The text the user input is in the string @text.
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    # Count number of characters with spaces
+    @character_count_with_spaces = @text.length
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    # Turn text into an array
+    @array_text = @text.split
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    #  Count number of words
+    @word_count = @array_text.count
 
-    @word_count = "Replace this string with your answer."
+    # Count number of times the special word appears in the array
+    @occurrences = @array_text.count(@special_word)
 
-    @occurrences = "Replace this string with your answer."
+    # Count number of characters without spaces
+    @sanitized_text = @text.gsub(" ", "")
 
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    @character_count_without_spaces = @sanitized_text.length
 
     render("word_count.html.erb")
   end
