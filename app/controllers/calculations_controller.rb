@@ -13,7 +13,7 @@ class CalculationsController < ApplicationController
 
     @character_count_with_spaces = @text.length
 
-spaces = @text.count " "
+    spaces = @text.count " "
 
     @character_count_without_spaces = @character_count_with_spaces - spaces
 
@@ -41,11 +41,11 @@ spaces = @text.count " "
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-rate = (@apr/12) / 100
-periods = @years * 12
-numerator = rate * @principal * ((1+rate)**periods)
-denominator = ((1 + rate) ** periods) - 1
-the_payment = numerator / denominator
+    rate = (@apr/12) / 100
+    periods = @years * 12
+    numerator = rate * @principal * ((1+rate)**periods)
+    denominator = ((1 + rate) ** periods) - 1
+    the_payment = numerator / denominator
     @monthly_payment = the_payment.to_s
 
     # ================================================================================
@@ -77,7 +77,7 @@ the_payment = numerator / denominator
     @days = number_days.round(2)
     number_weeks = number_days / 7
     @weeks = number_weeks.round(2)
-    number_years = number_weeks / 52
+    number_years = number_days / 365.25
     @years = number_years.round(2)
 
     # ================================================================================
@@ -94,7 +94,7 @@ the_payment = numerator / denominator
     # Your code goes below.
     # The numbers the user input are in the array @numbers.
     # ================================================================================
-entries = @numbers.split(" ")
+    entries = @numbers.split(" ")
 
     @sorted_numbers = @numbers.sort
 
@@ -104,26 +104,45 @@ entries = @numbers.split(" ")
 
     @maximum = @numbers.max
 
-range_of_numbers = "#{@numbers.min} to #{@numbers.max}"
+    range_of_numbers = "#{@numbers.min} to #{@numbers.max}"
 
     @range = range_of_numbers
+    list_of_sorted_numbers = @numbers.sort
+      choice = list_of_sorted_numbers.length / 2
 
-    @median = "Replace this string with your answer."
-
-    @sum = "Replace this string with your answer."
-
-    @mean = "Replace this string with your answer."
-
-    @variance = "Replace this string with your answer."
-
-    @standard_deviation = "Replace this string with your answer."
-
-    @mode = "Replace this string with your answer."
-
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
-
-    render("descriptive_statistics.html.erb")
+if list_of_sorted_numbers.length.odd? == true
+  @median = list_of_sorted_numbers[choice.ceil]
+else
+    @median = (list_of_sorted_numbers[choice] + list_of_sorted_numbers[choice - 1]) /2
   end
+
+
+
+
+
+list_of_numbers = @numbers
+    def sum(list_of_numbers)
+      running_total = 0
+      list_of_numbers.each do |entry|
+        running_total = running_total + entry
+      end
+      return running_total
+    end
+    @sum = list_of_numbers.sum
+
+    @mean = list_of_numbers.sum / @numbers.length
+
+
+  @variance = "I have no idea"
+
+  @standard_deviation = "Replace this string with your answer."
+
+  @mode = "Replace this string with your answer."
+
+  # ================================================================================
+  # Your code goes above.
+  # ================================================================================
+
+  render("descriptive_statistics.html.erb")
+end
 end
