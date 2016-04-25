@@ -117,15 +117,15 @@ class CalculationsController < ApplicationController
 
     # @variance = "Replace this string with your answer."
 
-    @count_num = 0
-    @mean_diff = 0
-    while @count_num < @count
-      @mean_diff = @mean_diff+((@sorted_numbers(@count_num) - @mean)**2)
-      @counter = @count_num +1
-    end
-    @variance =@mean_diff
+    # @count_num = 0
+    # @mean_diff = 0
+    # while @count_num < @count
+    #   @mean_diff = @mean_diff+((@sorted_numbers(@count_num) - @mean)**2)
+    #   @counter = @count_num +1
+    # end
+    # @variance =@mean_diff
 
-    @standard_deviation = Math.sqrt(@variance)
+    # @standard_deviation = Math.sqrt(@variance)
 
     @mode = @numbers.uniq.max_by{ |i| @numbers.count( i ) }
 
