@@ -98,11 +98,18 @@ class CalculationsController < ApplicationController
 
     @mean = @sum/@count
 
-    @variance =
+    x = 0
+    var_num = 0
+    while x <= @count-1
+      var_num = var_num + ((@numbers[x]-@mean)**2)
+      x = x+1
+    end
 
-    @standard_deviation =
+    @variance = var_num / @count
 
-    @mode =
+    @standard_deviation = @variance ** (0.5)
+
+    @mode = 
 
     # ================================================================================
     # Your code goes above.
