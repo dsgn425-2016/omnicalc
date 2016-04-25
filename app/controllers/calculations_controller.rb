@@ -90,7 +90,12 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = @numbers[@count/2]
+    # Calculate the median for odd number of values and even number of values
+    if @count.odd? == true
+      @median = @numbers[@count/2]
+    else
+      @median = (@numbers[(@count/2)-1]+@numbers[@count/2])/2
+    end
 
     # Define sum method
     def sum(list_of_numbers)
