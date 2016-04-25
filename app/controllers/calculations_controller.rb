@@ -107,27 +107,72 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    # Code below is Matt Kiepura's solution to OmniCalc - Descriptive Stats
 
-    @count = "Replace this string with your answer."
+    numbersSorted = @numbers.sort
+    @sorted_numbers = numbersSorted
 
-    @minimum = "Replace this string with your answer."
+    numCount = numbersSorted.count
+    @count = numCount
 
-    @maximum = "Replace this string with your answer."
+    minNum = numbersSorted[0]
+    @minimum = minNum
 
-    @range = "Replace this string with your answer."
+    maxNum = numbersSorted.last
+    @maximum = maxNum
 
-    @median = "Replace this string with your answer."
+    @range = maxNum - minNum
 
-    @sum = "Replace this string with your answer."
+    # Median calculation
+    if numCount % 2 > 0   # we have an odd array length
+      index = (numCount - 1) / 2   # (-1) due to array index starting at 0
+      @median = numbersSorted[index]
+    else                  # we have an even array length and need to average
+      indexR = numCount / 2
+      indexL = indexR - 1
+      @median = (numbersSorted[indexR] + numbersSorted[indexL]) / 2.0
+    end
 
-    @mean = "Replace this string with your answer."
+    # Sum calculation
+    runningTotal = 0
+    numbersSorted.each do |arrayNum|
+      runningTotal += arrayNum
+    end
+    @sum = runningTotal
 
-    @variance = "Replace this string with your answer."
+    @mean = @sum.to_f / numCount
 
-    @standard_deviation = "Replace this string with your answer."
+    # Variance calculation
+    runningVariance = 0
+    numbersSorted.each do |arrayNum|
+      difference = arrayNum - @mean
+      runningVariance += difference**2
+    end
+    @variance = runningVariance / numCount
 
-    @mode = "Replace this string with your answer."
+    @standard_deviation = @variance**(0.5)
+
+    # Mode Calculation
+    bestMode = numbersSorted[0]   # Make default Mode the first element (=MIN)
+    bestOccurences = 1            # Corresponds with the default Mode above
+    lastIter = numbersSorted.count - 2   # stop 1 short of array end to avoid index errors
+    for i in 0..lastIter
+      j = i + 1
+      tempOccurences = 1
+      while numbersSorted[i] == numbersSorted[j]
+        tempOccurences += 1
+        if tempOccurences > bestOccurences
+          bestMode = numbersSorted[i]
+          bestOccurences = tempOccurences
+        end
+        if j < numbersSorted.length - 1
+          j += 1
+        else
+          break   # This is the case where the last two elements match
+        end
+      end
+    end
+    @mode = bestMode
 
     # ================================================================================
     # Your code goes above.
