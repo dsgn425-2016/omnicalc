@@ -130,12 +130,15 @@ list_of_numbers = @numbers
     end
     @sum = list_of_numbers.sum
 
-    @mean = list_of_numbers.sum / @numbers.length
+    @mean = (list_of_numbers.sum / @numbers.length).round(2)
 
+mean = list_of_numbers.sum / list_of_numbers.length
+squared_errors = list_of_numbers.map{|i| (i-mean)**2}
 
-  @variance = "I have no idea"
+  @variance = (squared_errors.sum / list_of_numbers.length).round(2)
+variance = @variance
+  @standard_deviation = Math.sqrt(variance).round(2)
 
-  @standard_deviation = "Replace this string with your answer."
 
   @mode = "Replace this string with your answer."
 
