@@ -88,17 +88,21 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers.last
 
-    @range = "Replace this string with your answer."
+    @range = @maximum-@minimum
 
-    @median = "Replace this string with your answer."
+    if @count.odd?
+      @median = @sorted_numbers[@count/2]
+    elsif
+      @median = (@sorted_numbers[(@count/2)-1]+@sorted_numbers[(@count/2)])/2
+    end
 
     @sum = "Replace this string with your answer."
 
