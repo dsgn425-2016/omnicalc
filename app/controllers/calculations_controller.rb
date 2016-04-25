@@ -51,7 +51,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = ((@apr/100)*@principal)/12
 
     # ================================================================================
     # Your code goes above.
@@ -115,7 +115,17 @@ class CalculationsController < ApplicationController
 
     @standard_deviation = "Replace this string with your answer."
 
-    @mode = "Replace this string with your answer."
+
+
+    freq_array = @numbers
+    freq = freq_array.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    mode = freq_array.max_by { |v| freq[v] }
+    for number in freq_array
+      if number == mode
+
+
+
+    @mode = mode
 
     # ================================================================================
     # Your code goes above.
