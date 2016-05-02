@@ -62,12 +62,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = -(@starting-@ending)
+    @minutes = -(@starting-@ending)/60
+    @hours = -((@starting-@ending)/60)/60
+    @days = -(((@starting-@ending)/60)/60)/24
+    @weeks = -((((@starting-@ending)/60)/60)/24)/7
+    @years = -(((((@starting-@ending)/60)/60)/24)/7)/52
 
     # ================================================================================
     # Your code goes above.
@@ -84,27 +84,46 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    def sum(list_of_numbers)
+      running_total = 0
+      @numbers.each do |number|
+        running_total = running_total + number
+      end
 
-    @count = "Replace this string with your answer."
+      return running_total
+    end
 
-    @minimum = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @maximum = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @range = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @median = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @sum = "Replace this string with your answer."
+    @range = (@numbers.max) - (@numbers.min)
 
-    @mean = "Replace this string with your answer."
+    @median = sum(@numbers)/2
 
-    @variance = "Replace this string with your answer."
+    @sum = sum(@numbers)
 
-    @standard_deviation = "Replace this string with your answer."
+    @mean = sum(@numbers)/@numbers.count
 
-    @mode = "Replace this string with your answer."
+    def variance(list_of_numbers)
+      total=0
+      @numbers.each do |v|
+        total = total+(v - @mean)**2
+      end
+      return total/@numbers.count
+    end
+
+    @variance = variance(@numbers)
+
+    @floattest = @variance.to_f
+
+    @standard_deviation = Math.sqrt(@floattest)
+
+    @mode = "couldn't figure it out :("
 
     # ================================================================================
     # Your code goes above.
