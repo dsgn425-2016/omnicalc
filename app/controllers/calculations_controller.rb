@@ -11,13 +11,23 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    text = @text.split
 
-    @word_count = "Replace this string with your answer."
+    @word_count = text.count
 
-    @occurrences = "Replace this string with your answer."
+    @character_count_without_spaces = @text.length - @word_count + 1
+
+    occurrences = 0
+
+    text.each do |match|
+      if match == @special_word
+        occurrences = occurrences + 1
+      end
+    end
+
+    @occurrences = occurrences
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +48,13 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    month_interest_rate = @apr/1200
+
+    periods = @years*12
+
+    monthly_payment = @principal * month_interest_rate/(1-(1+month_interest_rate)**(-1*periods))
+
+    @monthly_payment = monthly_payment
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +76,20 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    secs_min = 60
+    secs_hour = secs_min*60
+    secs_day = 24*secs_hour
+    secs_week = secs_day*7
+    secs_year = secs_week*52
+
+
+
+    @seconds = -(@starting - @ending)
+    @minutes = -(@starting - @ending)/secs_min
+    @hours = -(@starting - @ending)/secs_hour
+    @days = -(@starting - @ending)/secs_day
+    @weeks = -(@starting - @ending)/secs_week
+    @years = -(@starting - @ending)/secs_year
 
     # ================================================================================
     # Your code goes above.
@@ -81,28 +105,75 @@ class CalculationsController < ApplicationController
     # Your code goes below.
     # The numbers the user input are in the array @numbers.
     # ================================================================================
+    #
+    # def bubble_sort(array)
+    #   n = array.length
+    #   loop do
+    #     swapped = false
+    #
+    #     (n-1).times do |i|
+    #       if array[i] > array[i+1]
+    #         array[i], array[i+1] = array[i+1], array[i]
+    #         swapped = true
+    #       end
+    #     end
+    #
+    #     break if not swapped
+    #   end
+    #   array
+    # end
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @sorted_numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers[-1]
 
-    @range = "Replace this string with your answer."
+    @range =  @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    if @count/2 != 2
+      middle_number = @count/2-0.5
+      median = @sorted_numbers[middle_number]
+    else
+      middle_lower = @count/2
+      middle_upper = middle_lower + 1
+      median = (middle_upper-middle_lower)/2
+    end
+    @median = median
 
-    @sum = "Replace this string with your answer."
+    total = 0
+    @sorted_numbers.each do |agg_sum|
+      total = total + agg_sum
+    end
 
-    @mean = "Replace this string with your answer."
+    @sum = total
 
-    @variance = "Replace this string with your answer."
+    @mean =  @sum/@count
 
-    @standard_deviation = "Replace this string with your answer."
+    #calculate the variance of the list
+    sum_squ = 0
+    @sorted_numbers.each do |agg_sum_squ|
+      sum_squ = sum_squ + (agg_sum_squ - @mean)**2
+    end
 
-    @mode = "Replace this string with your answer."
+    @variance = sum_squ/@count
+
+    @standard_deviation = Math.sqrt(@variance)
+
+  # occurrences = 0
+  # @sorted_numbers.each do |match1|
+  #   @previous_match=match1
+  #       @sorted_numbers.each do |match2|
+  #         if match == @previous_match
+  #           occurrences = occurrences + 1
+  #           mode = match
+  #         end
+  #       end
+  #     end
+
+    @mode = median
 
     # ================================================================================
     # Your code goes above.
