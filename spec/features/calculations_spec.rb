@@ -33,7 +33,7 @@ RSpec.describe "Calculation", type: :feature do
   describe "Word Count with mixed case" do
     before do
       visit '/word_count/new'
-      fill_in 'user_text', with: 'The first draft is just you telling yourself the story'
+      fill_in 'user_text', with: 'w'
       fill_in 'user_word', with: 'the'
       click_button 'Submit'
     end
